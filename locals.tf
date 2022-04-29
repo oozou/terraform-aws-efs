@@ -1,8 +1,8 @@
 locals {
-  enabled                = var.enabled
-  enabled_backup                = var.enabled_backup
-  service_name = "${var.prefix}-${var.environment}-${var.name}"
-  
+  enabled        = var.is_created
+  enabled_backup = var.enabled_backup
+  service_name   = "${var.prefix}-${var.environment}-${var.name}"
+
   # Returning null in the lookup function gives type errors and is not omitting the parameter.
   # This work around ensures null is returned.
   posix_users = {

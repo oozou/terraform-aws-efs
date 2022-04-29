@@ -2,7 +2,7 @@
 /*                                   Volume                                   */
 /* -------------------------------------------------------------------------- */
 resource "aws_efs_file_system" "default" {
-  count                           = var.enabled ? 1 : 0
+  count                           = local.enabled ? 1 : 0
   availability_zone_name          = var.availability_zone_name
   encrypted                       = var.encrypted
   kms_key_id                      = var.kms_key_id

@@ -37,9 +37,9 @@ variable "subnets" {
   description = "Subnet IDs"
 }
 
-variable "enabled" {
+variable "is_created" {
   type        = bool
-  description = "Enable EFS"
+  description = "Is create EFS"
   default     = true
 }
 
