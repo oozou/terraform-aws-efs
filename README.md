@@ -96,5 +96,16 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_access_point_arns"></a> [access\_point\_arns](#output\_access\_point\_arns) | EFS AP ARNs |
+| <a name="output_access_point_ids"></a> [access\_point\_ids](#output\_access\_point\_ids) | EFS AP ids |
+| <a name="output_arn"></a> [arn](#output\_arn) | EFS ARN |
+| <a name="output_id"></a> [id](#output\_id) | EFS ID |
+| <a name="output_mount_target_dns_names"></a> [mount\_target\_dns\_names](#output\_mount\_target\_dns\_names) | List of EFS mount target DNS names |
+| <a name="output_mount_target_ids"></a> [mount\_target\_ids](#output\_mount\_target\_ids) | List of EFS mount target IDs (one per Availability Zone) |
+| <a name="output_mount_target_ips"></a> [mount\_target\_ips](#output\_mount\_target\_ips) | List of EFS mount target IPs (one per Availability Zone) |
+| <a name="output_network_interface_ids"></a> [network\_interface\_ids](#output\_network\_interface\_ids) | List of mount target network interface IDs |
+| <a name="output_security_group_client_id"></a> [security\_group\_client\_id](#output\_security\_group\_client\_id) | EFS Security Group Client ID |
+| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | EFS Security GroupID |
 <!-- END_TF_DOCS -->
