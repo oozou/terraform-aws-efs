@@ -6,6 +6,7 @@ Terraform module with create EFS resouces on AWS.
 - Additonal Cluster Ingress Rule for EKS support.
 - Client Security Group for attach AWS resources (Allow to access EFS).
 
+## Usage
 ```terraform
 module "efs_storage" {
   source = "./modules/efs"
