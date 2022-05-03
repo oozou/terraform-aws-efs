@@ -21,6 +21,18 @@ resource "aws_security_group_rule" "ingress" {
   source_security_group_id = aws_security_group.client.id
 }
 
+resource "aws_security_group_rule" "additional_cluster_ingress" {
+  count = local.enabled ? length(var.additional_cluster_security_group_ingress_rules) : null
+  type                     = "ingress"
+  from_port                = var.additional_cluster_security_group_ingress_rules[count.index].from_port
+  to_port                  = var.additional_cluster_security_group_ingress_rules[count.index].to_port
+  protocol                 = var.additional_cluster_security_group_ingress_rules[count.index].protocol
+  cidr_blocks              = length(var.additional_cluster_security_group_ingress_rules[count.index].source_security_group_id) > 0 ? null : var.additional_cluster_security_group_ingress_rules[count.index].cidr_blocks
+  source_security_group_id = length(var.additional_cluster_security_group_ingress_rules[count.index].cidr_blocks) > 0 ? null : var.additional_cluster_security_group_ingress_rules[count.index].source_security_group_id
+  description              = var.additional_cluster_security_group_ingress_rules[count.index].description
+  security_group_id        = aws_security_group.efs.id
+}
+
 # security group for clients
 resource "aws_security_group" "client" {
   name        = "${local.service_name}-efs-client-sg"

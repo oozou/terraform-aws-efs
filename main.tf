@@ -39,8 +39,7 @@ resource "aws_efs_mount_target" "default" {
   subnet_id      = var.subnets[count.index]
   security_groups = compact(
     (concat(
-      [aws_security_group.efs.id],
-      var.associated_security_group_ids
+      [aws_security_group.efs.id]
     ))
   )
 }

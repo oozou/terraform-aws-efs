@@ -37,7 +37,7 @@ variable "subnets" {
   description = "Subnet IDs"
 }
 
-variable "is_created" {
+variable "is_created_efs" {
   type        = bool
   description = "Is create EFS"
   default     = true
@@ -140,11 +140,15 @@ variable "kms_key_id" {
 /* -------------------------------------------------------------------------- */
 /*                               Security Group                               */
 /* -------------------------------------------------------------------------- */
-variable "associated_security_group_ids" {
-  type        = list(string)
+variable "additional_cluster_security_group_ingress_rules" {
+  type = list(object({
+    from_port                = number
+    to_port                  = number
+    protocol                 = string
+    cidr_blocks              = list(string)
+    source_security_group_id = string
+    description              = string
+  }))
+  description = "Additional ingress rule for cluster security group."
   default     = []
-  description = <<-EOT
-    A list of IDs of Security Groups to associate the EFS Mount Targets with, in addition to the created security group.
-    These security groups will not be modified and, if `create_security_group` is `false`, must have rules providing the desired access.
-    EOT
 }

@@ -1,5 +1,5 @@
 locals {
-  enabled        = var.is_created
+  enabled        = var.is_created_efs
   enabled_backup = var.enabled_backup
   service_name   = "${var.prefix}-${var.environment}-${var.name}"
 
