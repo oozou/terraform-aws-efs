@@ -1,4 +1,10 @@
 # terraform-aws-efs
+Terraform module with create EFS resouces on AWS.
+- Mount Target and Access Point Support.
+- Can enabled KMS Encryption.
+- Backup Enable/Disable.
+- Additonal Cluster Ingress Rule for EKS support.
+- Client Security Group for attach AWS resources (Allow to access EFS).
 
 ```terraform
 module "efs_storage" {

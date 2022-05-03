@@ -22,7 +22,7 @@ resource "aws_security_group_rule" "ingress" {
 }
 
 resource "aws_security_group_rule" "additional_cluster_ingress" {
-  count = local.enabled ? length(var.additional_cluster_security_group_ingress_rules) : null
+  count                    = local.enabled ? length(var.additional_cluster_security_group_ingress_rules) : null
   type                     = "ingress"
   from_port                = var.additional_cluster_security_group_ingress_rules[count.index].from_port
   to_port                  = var.additional_cluster_security_group_ingress_rules[count.index].to_port
