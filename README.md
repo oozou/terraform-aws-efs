@@ -9,7 +9,7 @@ Terraform module with create EFS resouces on AWS.
 ## Usage
 ```terraform
 module "efs_storage" {
-  source = "./modules/efs"
+  source = "git::ssh://git@github.com/<repository>/terraform-aws-efs.git?ref=v1.0.0"
 
   # Generics
   prefix      = "customer"
