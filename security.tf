@@ -24,12 +24,12 @@ resource "aws_security_group_rule" "ingress" {
 resource "aws_security_group_rule" "additional_cluster_ingress" {
   count                    = local.enabled ? length(var.additional_cluster_security_group_ingress_rules) : null
   type                     = "ingress"
-  from_port                = var.additional_cluster_security_group_ingress_rules[count.index].from_port
-  to_port                  = var.additional_cluster_security_group_ingress_rules[count.index].to_port
-  protocol                 = var.additional_cluster_security_group_ingress_rules[count.index].protocol
-  cidr_blocks              = length(var.additional_cluster_security_group_ingress_rules[count.index].source_security_group_id) > 0 ? null : var.additional_cluster_security_group_ingress_rules[count.index].cidr_blocks
-  source_security_group_id = length(var.additional_cluster_security_group_ingress_rules[count.index].cidr_blocks) > 0 ? null : var.additional_cluster_security_group_ingress_rules[count.index].source_security_group_id
-  description              = var.additional_cluster_security_group_ingress_rules[count.index].description
+  from_port                = lookup(var.additional_cluster_security_group_ingress_rules[count.index], "from_port", 0)
+  to_port                  = lookup(var.additional_cluster_security_group_ingress_rules[count.index], "to_port", 65535)
+  protocol                 = lookup(var.additional_cluster_security_group_ingress_rules[count.index], "protocol", "tcp")
+  cidr_blocks              = lookup(var.additional_cluster_security_group_ingress_rules[count.index], "cidr_blocks", null)
+  source_security_group_id = lookup(var.additional_cluster_security_group_ingress_rules[count.index], "source_security_group_id", null)
+  description              = lookup(var.additional_cluster_security_group_ingress_rules[count.index], "description", "additional rule for efs")
   security_group_id        = aws_security_group.efs.id
 }
 
