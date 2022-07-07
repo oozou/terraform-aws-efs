@@ -18,6 +18,11 @@ output "id" {
   description = "EFS ID"
 }
 
+output "dns_name" {
+  value       = local.enabled ? join("", aws_efs_file_system.default.*.dns_name) : null
+  description = "The DNS name for the filesystem"
+}
+
 output "mount_target_dns_names" {
   value       = local.enabled ? coalescelist(aws_efs_mount_target.default.*.mount_target_dns_name, [""]) : null
   description = "List of EFS mount target DNS names"
