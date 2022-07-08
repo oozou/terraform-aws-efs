@@ -13,9 +13,7 @@ All notable changes to this module will be documented in this file.
 
 ### Updated
 
-- 
-- Outputs
-  - `dns_name`
+- rename security.tf to sg.tf
 
 ## [1.0.2] - 2022-07-07
 
