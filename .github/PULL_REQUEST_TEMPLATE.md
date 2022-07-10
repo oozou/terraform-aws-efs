@@ -7,7 +7,7 @@ Thank you for help us contribute! Please give us more information about this PR.
 ### Adds
 - Resource xxxx
 
-### Fixs
+### Fixes
 - Resouces yyyyyy
 
 ### Changes
