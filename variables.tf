@@ -28,30 +28,28 @@ variable "tags" {
 /*                                     EFS                                    */
 /* -------------------------------------------------------------------------- */
 variable "vpc_id" {
-  type        = string
   description = "VPC ID"
+  type        = string
 }
 
 variable "subnets" {
-  type        = list(string)
   description = "Subnet IDs"
+  type        = list(string)
 }
 
 variable "is_created_efs" {
-  type        = bool
   description = "Is create EFS"
+  type        = bool
   default     = true
 }
 
 variable "enabled_backup" {
-  type        = bool
   description = "Enable Backup EFS"
+  type        = bool
   default     = false
 }
 
 variable "access_points" {
-  type        = map(map(map(any)))
-  default     = {}
   description = <<-EOT
     A map of the access points you would like in your EFS volume
     See [examples/complete] for an example on how to set this up.
@@ -60,35 +58,37 @@ variable "access_points" {
     The secondary_gids key should be a comma separated value.
     More information can be found in the terraform resource [efs_access_point](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_access_point).
     EOT
+  type        = map(map(map(any)))
+  default     = {}
 }
 
 variable "performance_mode" {
-  type        = string
   description = "The file system performance mode. Can be either `generalPurpose` or `maxIO`"
+  type        = string
   default     = "generalPurpose"
 }
 
 variable "provisioned_throughput_in_mibps" {
+  description = "The throughput, measured in MiB/s, that you want to provision for the file system. Only applicable with `throughput_mode` set to provisioned"
   type        = number
   default     = 0
-  description = "The throughput, measured in MiB/s, that you want to provision for the file system. Only applicable with `throughput_mode` set to provisioned"
 }
 
 variable "throughput_mode" {
-  type        = string
   description = "Throughput mode for the file system. Defaults to bursting. Valid values: `bursting`, `provisioned`. When using `provisioned`, also set `provisioned_throughput_in_mibps`"
+  type        = string
   default     = "bursting"
 }
 
 variable "mount_target_ip_address" {
-  type        = string
   description = "The address (within the address range of the specified subnet) at which the file system may be mounted via the mount target"
+  type        = string
   default     = null
 }
 
 variable "transition_to_ia" {
-  type        = list(string)
   description = "Indicates how long it takes to transition files to the Infrequent Access (IA) storage class. Valid values: AFTER_7_DAYS, AFTER_14_DAYS, AFTER_30_DAYS, AFTER_60_DAYS and AFTER_90_DAYS. Default (no value) means \"never\"."
+  type        = list(string)
   default     = []
   validation {
     condition = (
@@ -99,8 +99,8 @@ variable "transition_to_ia" {
 }
 
 variable "transition_to_primary_storage_class" {
-  type        = list(string)
   description = "Describes the policy used to transition a file from Infrequent Access (IA) storage to primary storage. Valid values: AFTER_1_ACCESS."
+  type        = list(string)
   default     = []
   validation {
     condition = (
@@ -111,29 +111,41 @@ variable "transition_to_primary_storage_class" {
 }
 
 variable "efs_backup_policy_enabled" {
-  type        = bool
   description = "If `true`, it will turn on automatic backups."
+  type        = bool
   default     = false
 }
 
 variable "availability_zone_name" {
-  type        = string
   description = "AWS Availability Zone in which to create the file system. Used to create a file system that uses One Zone storage classes. If set, a single subnet in the same availability zone should be provided to `subnets`"
+  type        = string
   default     = null
+}
+
+variable "additional_efs_resource_policies" {
+  description = "Additional IAM policies block, input as data source. Ref: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document"
+  type        = list(string)
+  default     = []
+}
+
+variable "bypass_policy_lockout_safety_check" {
+  description = "A flag to indicate whether to bypass the aws_efs_file_system_policy lockout safety check. The policy lockout safety check determines whether the policy in the request will prevent the principal making the request will be locked out from making future PutFileSystemPolicy requests on the file system. Set bypass_policy_lockout_safety_check to true only when you intend to prevent the principal that is making the request from making a subsequent PutFileSystemPolicy request on the file system. The default value is false."
+  type        = bool
+  default     = false
 }
 
 /* -------------------------------------------------------------------------- */
 /*                                 Encryption                                 */
 /* -------------------------------------------------------------------------- */
 variable "encrypted" {
-  type        = bool
   description = "If true, the file system will be encrypted"
+  type        = bool
   default     = true
 }
 
 variable "kms_key_id" {
-  type        = string
   description = "If set, use a specific KMS key"
+  type        = string
   default     = null
 }
 
@@ -141,7 +153,7 @@ variable "kms_key_id" {
 /*                               Security Group                               */
 /* -------------------------------------------------------------------------- */
 variable "additional_cluster_security_group_ingress_rules" {
-  type = list(any)
   description = "Additional ingress rule for cluster security group."
+  type        = list(any)
   default     = []
 }
