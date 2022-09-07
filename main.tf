@@ -1,3 +1,7 @@
+data "aws_caller_identity" "this" {}
+
+data "aws_region" "this" {}
+
 /* -------------------------------------------------------------------------- */
 /*                                   Volume                                   */
 /* -------------------------------------------------------------------------- */
@@ -27,6 +31,55 @@ resource "aws_efs_file_system" "default" {
       transition_to_primary_storage_class = try(var.transition_to_primary_storage_class[0], null)
     }
   }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             EFS Resource Policy                            */
+/* -------------------------------------------------------------------------- */
+data "aws_iam_policy_document" "efs_resource_based_policy" {
+  count = local.enabled ? 1 : 0
+
+  statement {
+    sid = "EFS Allow access via mount point"
+
+    actions = [
+      "elasticfilesystem:ClientMount",
+      "elasticfilesystem:ClientWrite",
+      "elasticfilesystem:ClientRootAccess"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    resources = ["arn:aws:elasticfilesystem:${data.aws_region.this.name}:${data.aws_caller_identity.this.id}:file-system/${aws_efs_file_system.default[0].id}"]
+
+    condition {
+      test     = "Bool"
+      variable = "elasticfilesystem:AccessedViaMountTarget"
+
+      values = [
+        "true"
+      ]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "this" {
+  count = local.enabled ? 1 : 0
+
+  source_policy_documents   = [data.aws_iam_policy_document.efs_resource_based_policy[0].json]
+  override_policy_documents = var.additional_efs_resource_policies
+}
+
+resource "aws_efs_file_system_policy" "policy" {
+  count = local.enabled ? 1 : 0
+
+  file_system_id = aws_efs_file_system.default[0].id
+  policy         = data.aws_iam_policy_document.this[0].json
+
+  bypass_policy_lockout_safety_check = var.bypass_policy_lockout_safety_check
 }
 
 /* -------------------------------------------------------------------------- */
