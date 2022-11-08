@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "efs_resource_based_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.this.account_id}:root"]
     }
 
     resources = ["arn:aws:elasticfilesystem:${data.aws_region.this.name}:${data.aws_caller_identity.this.id}:file-system/${aws_efs_file_system.default[0].id}"]

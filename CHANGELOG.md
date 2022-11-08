@@ -2,6 +2,12 @@
 
 All notable changes to this module will be documented in this file.
 
+## [v1.0.4] - 2022-22-08
+
+### Updated
+
+- Update efs iam policy principals to account scope
+
 ## [v1.0.3] - 2022-09-05
 
 ### Added
