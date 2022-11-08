@@ -2,7 +2,7 @@
 
 All notable changes to this module will be documented in this file.
 
-## [v1.0.4] - 2022-22-08
+## [v1.0.4] - 2022-11-08
 
 ### Updated
 
