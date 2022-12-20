@@ -2,6 +2,12 @@
 
 All notable changes to this module will be documented in this file.
 
+## [v1.0.4] - 2022-12-20
+
+### Changed
+
+- Update data `data.aws_iam_policy_document.efs_resource_based_policy`'s argument `statement[0].resources` from `["arn:aws:elasticfilesystem:${data.aws_region.this.name}:${data.aws_caller_identity.this.id}:file-system/${aws_efs_file_system.default[0].id}"]` to `["*"]`
+
 ## [v1.0.3] - 2022-09-05
 
 ### Added
